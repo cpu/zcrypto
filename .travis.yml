@@ -13,7 +13,13 @@ script:
   # Fast-fail on non-zero exit codes
   - set -e
   # Verify that all files have been gofmt'd with simplification.
-  - diff <(GOFLAGS="-mod=vendor" go fmt ./... 2>&1) <(printf "")
+  #
+  # NOTE(@cpu): We use this `find` because Go issue 3197[0]
+  # and its many duplicates have yet to be resolved so we can't use `go fmt`
+  # without downloading copies of the already vendored deps.
+  #
+  # [0]: https://github.com/golang/go/issues/3197
+  - find . -name '*.go' -not -path './vendor/*' -print | xargs -n1 gofmt -l
   # Verify that unit tests pass
   - go test -v ./...
 
