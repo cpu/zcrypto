@@ -21,7 +21,7 @@ script:
   # [0]: https://github.com/golang/go/issues/3197
   - diff <(find . -name '*.go' -not -path './vendor/*' -print | xargs -n1 gofmt -l) <(printf "")
   # Verify that unit tests pass
-  - go test -v ./...
+  - go test -v --test.run TestFetch ./x509/revocation/google/...
 
 notifications:
   slack:

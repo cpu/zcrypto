@@ -124,6 +124,8 @@ func (z ZipReader) ReadAt(p []byte, pos int64) (int, error) {
 
 // internal method to fetch (Ohama-wrapped) CRLSet
 func fetch() (io.ReadCloser, string, error) {
+	url := buildVersionRequestURL()
+	fmt.Printf("Url: %#v\n", url)
 	resp, err := http.Get(buildVersionRequestURL())
 	if err != nil {
 		err = errors.New("Failed to get current version: " + err.Error())
@@ -137,6 +139,7 @@ func fetch() (io.ReadCloser, string, error) {
 		err = errors.New("Failed to read version reply: " + err.Error())
 		return nil, "", err
 	}
+	fmt.Printf("Resp:\n%s\n", string(bodyBytes))
 	if err = xml.Unmarshal(bodyBytes, &reply); err != nil {
 		err = errors.New("Failed to parse version reply: " + err.Error())
 		return nil, "", err

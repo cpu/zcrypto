@@ -2,6 +2,7 @@ package google_test
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -103,6 +104,9 @@ func TestParse(t *testing.T) {
 func TestFetch(t *testing.T) {
 	list, err := google.FetchAndParse()
 	if list == nil || err != nil {
+		fmt.Printf("List: %#v\n", list)
+		fmt.Printf("Err: %#v\n", err)
+		fmt.Printf("Err: %v\n", err)
 		t.Fail()
 	}
 }
