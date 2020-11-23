@@ -42,8 +42,8 @@ import (
 // pkixPublicKey reflects a PKIX public key structure. See SubjectPublicKeyInfo
 // in RFC 3280.
 type pkixPublicKey struct {
-	Algo      pkix.AlgorithmIdentifier
-	BitString asn1.BitString
+Algo      pkix.AlgorithmIdentifier
+BitString asn1.BitString
 }
 
 // ParsePKIXPublicKey parses a DER encoded public key. These values are
