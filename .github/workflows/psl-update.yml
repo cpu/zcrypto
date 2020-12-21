@@ -1,4 +1,4 @@
-name: tld-update
+name: psl-update
 on:
   schedule:
     # Run every hour, at the 15 minute mark. E.g.
@@ -27,19 +27,15 @@ jobs:
 
       - name: Update publicsuffix-go
         run: go get -u github.com/weppos/publicsuffix-go
-        working-directory: v3
 
       - name: Run go mod tidy
         run: go mod tidy
-        working-directory: v3
 
       - name: Build
-        run: make
-        working-directory: v3
+        run: go build -v ./...
 
       - name: Test
-        run: make test
-        working-directory: v3
+        run: go test -v ./...
 
       - name: Create pull-request
         id: cpr
